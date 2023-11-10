@@ -1,9 +1,9 @@
-const axios = require("axios");
 const { blueBright, yellowBright, redBright } = require("colorette");
+const axios = require("axios");
 
 const formatLog = (mensaje, tipo) => {
   const currentTime = new Date().toLocaleString("en-US", {
-    timeZone: "America/Guayaquil", // GMT-5
+    timeZone: "America/Guayaquil",
     hour12: false,
   });
 
@@ -11,40 +11,31 @@ const formatLog = (mensaje, tipo) => {
 };
 
 class Logger {
-  constructor() {
-    this.tipo = "";
-    this.mensaje = "";
+  constructor() {}
+
+  info(mensaje) {
+    const formattedLog = formatLog(mensaje, "info");
+    console.log(blueBright(formattedLog));
+
+    return this;
   }
 
-  log({ tipo, mensaje }) {
-    this.tipo = tipo;
-    this.mensaje = mensaje;
+  warn(mensaje) {
+    const formattedLog = formatLog(mensaje, "warning");
+    console.warn(yellowBright(formattedLog));
 
-    const formattedLog = formatLog(mensaje, tipo);
+    return this;
+  }
 
-    switch (tipo.toLowerCase()) {
-      case "info":
-        console.log(blueBright(formattedLog));
-        break;
-      case "warning":
-        console.warn(yellowBright(formattedLog));
-        break;
-      case "error":
-        console.error(redBright(formattedLog));
-        break;
-      default:
-        console.log(formattedLog);
-    }
+  error(mensaje) {
+    const formattedLog = formatLog(mensaje, "error");
+    console.error(redBright(formattedLog));
 
     return this;
   }
 
   async sendToServer() {
-    // TODO ENVIAR NOTIFICACIÓN WHATSAPP
-
-    this.tipo = "";
-    this.mensaje = "";
-
+    // TODO: Agregar lógica para enviar logs al servidor
     return this;
   }
 }

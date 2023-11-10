@@ -12,55 +12,42 @@ describe("Logger", () => {
     consoleWarnSpy = jest.spyOn(console, "warn");
     consoleErrorSpy = jest.spyOn(console, "error");
 
-    logger = new Logger({
-      consoleLog: consoleLogSpy,
-      consoleWarn: consoleWarnSpy,
-      consoleError: consoleErrorSpy,
-    });
+    logger = new Logger();
   });
 
-  test("log method should console.log with blueBright for info", () => {
-    const logObject = {
-      tipo: "info",
-      mensaje: "Test mensaje",
-    };
+  test("info method should console.log with blueBright", () => {
+    const message = "Test mensaje";
 
-    logger.log(logObject);
+    logger.info(message);
 
     expect(consoleLogSpy).toHaveBeenCalledWith(
-      expect.stringContaining("Test mensaje")
+      expect.stringContaining(message)
     );
     expect(consoleLogSpy).toHaveBeenCalledWith(
       expect.stringContaining("(INFO) -")
     );
   });
 
-  test("log method should console.warn with yellowBright for warning", () => {
-    const logObject = {
-      tipo: "warning",
-      mensaje: "Test mensaje",
-    };
+  test("warn method should console.warn with yellowBright", () => {
+    const message = "Test mensaje";
 
-    logger.log(logObject);
+    logger.warn(message);
 
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      expect.stringContaining("Test mensaje")
+      expect.stringContaining(message)
     );
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       expect.stringContaining("(WARNING) -")
     );
   });
 
-  test("log method should console.error with redBright for error", () => {
-    const logObject = {
-      tipo: "error",
-      mensaje: "Test mensaje",
-    };
+  test("error method should console.error with redBright", () => {
+    const message = "Test mensaje";
 
-    logger.log(logObject);
+    logger.error(message);
 
     expect(consoleErrorSpy).toHaveBeenCalledWith(
-      expect.stringContaining("Test mensaje")
+      expect.stringContaining(message)
     );
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       expect.stringContaining("(ERROR) -")
@@ -72,8 +59,8 @@ describe("Logger", () => {
 
     await logger.sendToServer();
 
-    expect(logger.tipo).toBe("");
-    expect(logger.mensaje).toBe("");
+    // TODO: Agregar expectativas según la lógica de tu método sendToServer
+
     expect(sendToServerSpy).toHaveBeenCalled();
   });
 });
