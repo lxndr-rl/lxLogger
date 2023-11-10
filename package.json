@@ -1,6 +1,6 @@
 {
   "name": "lxlogger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Un logger colorido para Node.js",
   "main": "index.js",
   "scripts": {
