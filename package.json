@@ -1,0 +1,26 @@
+{
+  "name": "lxlogger",
+  "version": "1.0.0",
+  "description": "Un logger colorido para Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lxndr-rl/lxLogger.git"
+  },
+  "keywords": [
+    "logger",
+    "nodejs"
+  ],
+  "author": "lxndr-rl",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.1",
+    "colorette": "^1.0.5"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
