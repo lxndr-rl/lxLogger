@@ -11,7 +11,13 @@ const formatLog = (mensaje, tipo) => {
 };
 
 class Logger {
-  constructor() {}
+  constructor({ serverURL = null, body = null, method = "POST" } = {}) {
+    this.serverURL = serverURL;
+    this.lastLog = "";
+    this.body = body;
+    this.method = method;
+    console.log(blueBright(`Logger initialized. ${serverURL ? `Server URL: ${serverURL}` : ""}`));
+  }
 
   info(mensaje) {
     const formattedLog = formatLog(mensaje, "info");
@@ -35,7 +41,27 @@ class Logger {
   }
 
   async sendToServer() {
-    // TODO: Agregar lógica para enviar logs al servidor
+    if (!this.serverURL) {
+      throw new Error("No se ha definido la URL del servidor");
+    }
+
+    const formattedLog = formatLog(this.lastLog, "info");
+    console.log(blueBright(`Sending log to server: ${formattedLog}`));
+
+    try {
+      await axios({
+        url: this.serverURL,
+        method: this.method,
+        data: {
+          body: {
+            log: formattedLog,
+            ...this.body,
+          },
+        },
+      });
+    } catch (error) {
+      console.error(redBright(`Error sending log to server: ${error.message}`));
+    }
     return this;
   }
 }
