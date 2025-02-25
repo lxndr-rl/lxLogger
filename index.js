@@ -55,16 +55,13 @@ class Logger {
     console.log(blueBright(formattedLog));
 
     try {
-      await axios({
-        url: this.serverURL,
+      fetch(this.serverURL, {
         method: this.method,
         headers: this.headers,
-        data: {
-          body: JSON.stringify(JSON.parse(this.body.replace(this.messageVar, this.lastLog))),
-        },
+        body: JSON.stringify(JSON.parse(this.body.replace(this.messageVar, this.lastLog))),
       });
     } catch (error) {
-      console.error(JSON.stringify(JSON.parse(this.body.replace(this.messageVar, this.lastLog))))
+      console.error(JSON.parse(this.body.replace(this.messageVar, this.lastLog)))
       console.error(redBright(`Error sending log to server: ${error.message}`));
     }
     return this;
