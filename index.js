@@ -60,7 +60,7 @@ class Logger {
         method: this.method,
         headers: this.headers,
         data: {
-          body: this.body.replace(this.messageVar, this.lastLog),
+          body: JSON.stringify(JSON.parse(this.body.replace(this.messageVar, this.lastLog))),
         },
       });
     } catch (error) {
