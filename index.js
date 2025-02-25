@@ -24,6 +24,7 @@ class Logger {
 
   info(mensaje) {
     const formattedLog = formatLog(mensaje, "info");
+    this.lastLog = formattedLog;
     console.log(blueBright(formattedLog));
 
     return this;
@@ -31,6 +32,7 @@ class Logger {
 
   warn(mensaje) {
     const formattedLog = formatLog(mensaje, "warning");
+    this.lastLog = formattedLog;
     console.warn(yellowBright(formattedLog));
 
     return this;
@@ -38,6 +40,7 @@ class Logger {
 
   error(mensaje) {
     const formattedLog = formatLog(mensaje, "error");
+    this.lastLog = formattedLog;
     console.error(redBright(formattedLog));
 
     return this;
@@ -48,8 +51,8 @@ class Logger {
       throw new Error("No se ha definido la URL del servidor");
     }
 
-    const formattedLog = formatLog(this.lastLog, "info");
-    console.log(blueBright(`Sending log to server: ${formattedLog}`));
+    const formattedLog = formatLog(`Sending log to server: ${this.lastLog}`, "info");
+    console.log(blueBright(formattedLog));
 
     try {
       await axios({
