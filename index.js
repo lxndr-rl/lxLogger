@@ -64,6 +64,7 @@ class Logger {
         },
       });
     } catch (error) {
+      console.error(JSON.stringify(JSON.parse(this.body.replace(this.messageVar, this.lastLog))))
       console.error(redBright(`Error sending log to server: ${error.message}`));
     }
     return this;
