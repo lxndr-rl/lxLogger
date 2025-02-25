@@ -11,12 +11,14 @@ const formatLog = (mensaje, tipo) => {
 };
 
 class Logger {
-  constructor({ serverURL = null, body = null, headers = null, method = "POST" } = {}) {
+  constructor({ serverURL = null, body = null, headers = null, message = "", messageVar = "{message}", method = "POST" } = {}) {
     this.serverURL = serverURL;
     this.lastLog = "";
     this.body = body;
     this.method = method;
     this.headers = headers;
+    this.message = message;
+    this.messageVar = messageVar;
     console.log(blueBright(`Logger initialized. ${serverURL ? `Server URL: ${serverURL}` : ""}`));
   }
 
@@ -55,10 +57,7 @@ class Logger {
         method: this.method,
         headers: this.headers,
         data: {
-          body: {
-            log: formattedLog,
-            ...this.body,
-          },
+          body: this.body.replace(this.messageVar, this.lastLog),
         },
       });
     } catch (error) {
